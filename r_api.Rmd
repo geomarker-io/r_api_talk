@@ -1,0 +1,70 @@
+---
+title: "APIs and R"
+author: "Erika Rasnick and Andrew Vancil"
+institute: "DBE Lunch and Learn"
+date: "May 6, 2021"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+---
+
+# APIs Overview
+
+---
+
+# APIs and R (httr)
+
+---
+
+# R API Wrapper Packages
+
+---
+
+# tidycensus
+
+erika
+
+---
+
+# tigris
+
+erika
+
+---
+
+# example
+
+erika
+
+---
+
+# rHealthDataGov
+
+andrew
+
+---
+
+# Redcap API 
+
+andrew
+
+---
+
+# Creating Your Own API With Plumber
+
+---
+
+# APIs and Data Privacy
+
+erika
+

@@ -48,9 +48,9 @@ erika
 
 ---
 
-# rHealthDataGov
-
-andrew
+# HealthData.gov
+- Using the package `RSocrata`, you can easily access datasets using a single command
+  - `df <- read.socrata("https://healthdata.gov/resource/g62h-syeh.json")` will import the dataset for Covid-19 Patient Impact and Hospital Capacity by State Timeseries
 
 ---
 
@@ -60,7 +60,18 @@ andrew
 
 ---
 
+#Example
+
+Andrew
+
+---
+
 # Creating Your Own API With Plumber
+
+---
+
+# More APIs
+- Google maps api, baseball stats, rapidapi
 
 ---
 

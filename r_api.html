@@ -57,19 +57,36 @@ erika
 
 # HealthData.gov
 - Using the package `RSocrata`, you can easily access datasets using a single command
-  - `df &lt;- read.socrata("https://healthdata.gov/resource/g62h-syeh.json")` will import the dataset for Covid-19 Patient Impact and Hospital Capacity by State Timeseries
+
+ `df &lt;- read.socrata("https://healthdata.gov/resource/g62h-syeh.json")`
+
+  - This command will import the dataset for Covid-19 Patient Impact and Hospital Capacity by State Timeseries
 
 ---
 
-# Redcap API 
+# REDCap API 
+- You can quickly access your REDCap project data using an api wrapper package called `redcapAPI`
 
-andrew
+- Using your project-specific API access token and REDCap url, you are able to access your data
+
+  `rcon &lt;- redcapConnection(url = my_url, token = my_token)`
+  `dat &lt;- exportRecords(rcon)`
+
+  - It is also possible to specify specific fields and records in the `exportRecords()` function
 
 ---
 
-#Example
+# REDCap Example
 
-Andrew
+- We currently use the `redcapAPI` package to access user experience survey data for DeGAUSS
+
+  `my_url &lt;- c('https://redcap.research.cchmc.org/api/')`
+  `my_token &lt;- c('D7...')`
+
+  `options(redcap_api_url = my_url)`&lt;br&gt;
+  `rcon &lt;- redcapConnection(url = my_url, token = my_token)`&lt;br&gt;
+  `dat &lt;- exportRecords(rcon, labels=F)`&lt;br&gt;
+  `write.csv(dat,"survey_raw_data.csv")`
 
 ---
 
@@ -78,7 +95,14 @@ Andrew
 ---
 
 # More APIs
-- Google maps api, baseball stats, rapidapi
+- A wrapper packaged for the Google Maps API: `mapsapi` that allows you to pull directions, distances, rasters and geocoded locations (point or polygon)
+
+- Baseball fans can access interesting data using the package `baseballr`
+ 
+  - `baseballr` uses the official MLB stats API and can pull pitch-by-pitch data, as well as source data from various baseball statistics databases
+  
+- [RapidAPI](https://rapidapi.com/marketplace) is an online repository of thousands of APIs across hundreds of topics
+  - Most are free, but generally opensource, so quality and validity can be hard to verify
 
 ---
 

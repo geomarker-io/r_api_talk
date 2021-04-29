@@ -27,13 +27,40 @@ class: center, middle, inverse, title-slide
 
 # APIs Overview
 
+- APIs allow programmers to request data directly from certain websites through what's called an Application Programming Interface (https://www.dataquest.io/blog/r-api-tutorial/)
+
+- APIs will have unique URLs and access keys that you will need to access the data
+
 ---
 
 # APIs and R (httr)
 
+- It is relatively simple to access APIs in R using either dedicated wrapper packages or manually using the `httr` and `jsonlite` packages
+
+```
+library(httr); library(jsonlite); library(tidyverse)
+
+res &lt;- GET("http://cagisonline.hamilton-co.org/arcgis/rest/services/COUNTYWIDE/CagisCoreLayers/MapServer/3/query?where=1 %3D1&amp;outFields=SHAPE,NEWADDR&amp;outSR=4326&amp;f=json")
+dat &lt;- content(res, as = "text", encoding = "UTF-8")
+df &lt;- fromJSON(dat, flatten = TRUE) %&gt;%
+  data.frame()
+df &lt;- df %&gt;%
+  filter(!is.na(features.attributes.NEWADDR)) %&gt;%
+  select(address = features.attributes.NEWADDR, lon = features.geometry.x, lat = features.geometry.y)
+df &lt;- sf::st_as_sf(df, coords = c('lon', 'lat'), crs = 4326)
+mapview::mapview(df)
+
+```
+---
+
+&lt;iframe src="ex_map.html" width="100%" height="600px"&gt;&lt;/iframe&gt;
+
+
 ---
 
 # R API Wrapper Packages
+
+combine this with the above ?
 
 ---
 
@@ -61,6 +88,9 @@ erika
  `df &lt;- read.socrata("https://healthdata.gov/resource/g62h-syeh.json")`
 
   - This command will import the dataset for Covid-19 Patient Impact and Hospital Capacity by State Timeseries
+  
+![Resultant Data:](healthdata_gov_pic.png)
+
 
 ---
 

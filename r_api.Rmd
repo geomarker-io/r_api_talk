@@ -29,10 +29,11 @@ options(htmltools.dir.version = FALSE)
 # APIs and R (httr)
 
 - It is relatively simple to access APIs in R using either dedicated wrapper packages or manually using the `httr` and `jsonlite` packages
-```{r}
+
+```
 library(httr); library(jsonlite); library(tidyverse)
 
-res <- GET("https://cagisonline.hamilton-co.org/arcgis/rest/services/COUNTYWIDE/CagisCoreLayers/MapServer/3/query?where=1 %3D1&outFields=SHAPE,NEWADDR&outSR=4326&f=json")
+res <- GET("http://cagisonline.hamilton-co.org/arcgis/rest/services/COUNTYWIDE/CagisCoreLayers/MapServer/3/query?where=1 %3D1&outFields=SHAPE,NEWADDR&outSR=4326&f=json")
 dat <- content(res, as = "text", encoding = "UTF-8")
 df <- fromJSON(dat, flatten = TRUE) %>%
   data.frame()
@@ -43,6 +44,12 @@ df <- sf::st_as_sf(df, coords = c('lon', 'lat'), crs = 4326)
 mapview::mapview(df)
 
 ```
+---
+
+```{r echo = FALSE}
+knitr::include_url("ex_map.html", height="600px")
+```
+
 
 ---
 
@@ -76,6 +83,9 @@ erika
  `df <- read.socrata("https://healthdata.gov/resource/g62h-syeh.json")`
 
   - This command will import the dataset for Covid-19 Patient Impact and Hospital Capacity by State Timeseries
+  
+![Resultant Data:](healthdata_gov_pic.png)
+
 
 ---
 

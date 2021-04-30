@@ -1,3 +1,4 @@
 # APIs and R
 
-view slides here: https://geomarker-io/r_api_talk
+view slides here: http://geomarker.io/r_api_talk/
+

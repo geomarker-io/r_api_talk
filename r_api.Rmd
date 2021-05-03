@@ -194,7 +194,7 @@ df <- read.socrata("https://healthdata.gov/resource/g62h-syeh.json")
 
 - This command will import the dataset for Covid-19 Patient Impact and Hospital Capacity by State Timeseries
   
-![Resultant Data:](healthdata_gov_pic.png)
+![Resultant Data:](figs/healthdata_gov_pic.png)
 
 ---
 
@@ -226,7 +226,7 @@ dat <- exportRecords(rcon, labels=F)
 write.csv(dat,"survey_raw_data.csv")
 ```
 
-![redcap](redcap_screenshot.png)
+![redcap](figs/redcap_screenshot.png)
 ---
 
 # Creating Your Own API With `plumber`

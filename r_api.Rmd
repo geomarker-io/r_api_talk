@@ -112,6 +112,8 @@ erika
   `rcon <- redcapConnection(url = my_url, token = my_token)`<br>
   `dat <- exportRecords(rcon, labels=F)`<br>
   `write.csv(dat,"survey_raw_data.csv")`
+  
+  ![redcap](redcap_screenshot.png)
 
 ---
 

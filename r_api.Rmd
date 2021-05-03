@@ -29,7 +29,9 @@ options(htmltools.dir.version = FALSE, message = F, warning = F,
 
 # APIs and R 
 
-- APIs are often used to request datasets directly from websites instead of downloading them 
+- APIs are often used to request datasets directly from websites instead of downloading them.
+
+- APIs will have unique URLs and access keys that you will need to access the data.
 
 - We can think of an API as a computer waiting for data requests. We need to write R code that tells the API what we need.
 
@@ -72,10 +74,6 @@ response$content
 fromJSON(rawToChar(response$content))
 ```
 
-- APIs allow programmers to request data directly from certain websites through what's called an Application Programming Interface (https://www.dataquest.io/blog/r-api-tutorial/)
-
-- APIs will have unique URLs and access keys that you will need to access the data
-
 ---
 
 # APIs and R - `{httr}`
@@ -84,29 +82,28 @@ fromJSON(rawToChar(response$content))
 fromJSON(rawToChar(response$content))$people
 ```
 
-
-- It is relatively simple to access APIs in R using either dedicated wrapper packages or manually using the `httr` and `jsonlite` packages
-
-```
-library(httr); library(jsonlite); library(tidyverse)
-
-res <- GET("http://cagisonline.hamilton-co.org/arcgis/rest/services/COUNTYWIDE/CagisCoreLayers/MapServer/3/query?where=1 %3D1&outFields=SHAPE,NEWADDR&outSR=4326&f=json")
-dat <- content(res, as = "text", encoding = "UTF-8")
-df <- fromJSON(dat, flatten = TRUE) %>%
-  data.frame()
-df <- df %>%
-  filter(!is.na(features.attributes.NEWADDR)) %>%
-  select(address = features.attributes.NEWADDR, lon = features.geometry.x, lat = features.geometry.y)
-df <- sf::st_as_sf(df, coords = c('lon', 'lat'), crs = 4326)
-mapview::mapview(df)
-
-```
 ---
 
-```{r echo = FALSE}
-knitr::include_url("ex_map.html", height="600px")
+# APIs and R - `{httr}`
+
+```{r, package.startup.message = F, message = F, warning = F}
+library(httr); library(jsonlite); library(tidyverse)
+
+res <- GET("http://cagisonline.hamilton-co.org/arcgis/rest/services/COUNTYWIDE/CagisCoreLayers/MapServer/3/query?where=1%20%3D1&outFields=SHAPE,NEWADDR&outSR=4326&f=json")
+
+dat <- content(res, as = "text", encoding = "UTF-8")
+
+df <- fromJSON(dat, flatten = TRUE) %>%
+  data.frame() %>%
+  dplyr::filter(!is.na(features.attributes.NEWADDR)) %>%
+  dplyr::select(address = features.attributes.NEWADDR, lon = features.geometry.x, lat = features.geometry.y) %>% 
+  sf::st_as_sf(coords = c('lon', 'lat'), crs = 4326)
 ```
 
+---
+```{r}
+mapview::mapview(df)
+```
 
 ---
 
@@ -185,18 +182,19 @@ acs_poverty
 mapview::mapview(acs_poverty, zcol = 'fraction_poverty')
 ```
 
-
 ---
 
 # HealthData.gov
+
 - Using the package `RSocrata`, you can easily access datasets using a single command
 
- `df <- read.socrata("https://healthdata.gov/resource/g62h-syeh.json")`
+```
+df <- read.socrata("https://healthdata.gov/resource/g62h-syeh.json")
+```
 
-  - This command will import the dataset for Covid-19 Patient Impact and Hospital Capacity by State Timeseries
+- This command will import the dataset for Covid-19 Patient Impact and Hospital Capacity by State Timeseries
   
 ![Resultant Data:](healthdata_gov_pic.png)
-
 
 ---
 
@@ -205,10 +203,12 @@ mapview::mapview(acs_poverty, zcol = 'fraction_poverty')
 
 - Using your project-specific API access token and REDCap url, you are able to access your data
 
-  `rcon <- redcapConnection(url = my_url, token = my_token)`
-  `dat <- exportRecords(rcon)`
+```
+rcon <- redcapConnection(url = my_url, token = my_token)
+dat <- exportRecords(rcon)
+```
 
-  - It is also possible to specify specific fields and records in the `exportRecords()` function
+- It is also possible to specify specific fields and records in the `exportRecords()` function
 
 ---
 
@@ -216,16 +216,17 @@ mapview::mapview(acs_poverty, zcol = 'fraction_poverty')
 
 - We currently use the `redcapAPI` package to access user experience survey data for DeGAUSS
 
-  `my_url <- c('https://redcap.research.cchmc.org/api/')`
-  `my_token <- c('D7...')`
+```
+my_url <- c('https://redcap.research.cchmc.org/api/')
+my_token <- c('D7...')
 
-  `options(redcap_api_url = my_url)`<br>
-  `rcon <- redcapConnection(url = my_url, token = my_token)`<br>
-  `dat <- exportRecords(rcon, labels=F)`<br>
-  `write.csv(dat,"survey_raw_data.csv")`
-  
-  ![redcap](redcap_screenshot.png)
+options(redcap_api_url = my_url)
+rcon <- redcapConnection(url = my_url, token = my_token)
+dat <- exportRecords(rcon, labels=F)
+write.csv(dat,"survey_raw_data.csv")
+```
 
+![redcap](redcap_screenshot.png)
 ---
 
 # Creating Your Own API With `plumber`
@@ -247,7 +248,7 @@ Example Use Case:
 
 - Baseball fans can access interesting data using the package `baseballr`
  
-  - `baseballr` uses the official MLB stats API and can pull pitch-by-pitch data, as well as source data from various baseball statistics databases
+- `baseballr` uses the official MLB stats API and can pull pitch-by-pitch data, as well as source data from various baseball statistics databases
   
 - [RapidAPI](https://rapidapi.com/marketplace) is an online repository of thousands of APIs across hundreds of topics
   - Most are free, but generally opensource, so quality and validity can be hard to verify
@@ -265,6 +266,8 @@ Example Use Case:
 # References 
 
 [https://en.wikipedia.org/wiki/API](https://en.wikipedia.org/wiki/API)
+
+[https://www.dataquest.io/blog/r-api-tutorial/](https://www.dataquest.io/blog/r-api-tutorial/)
 
 [https://www.dataquest.io/blog/r-api-tutorial/](https://www.dataquest.io/blog/r-api-tutorial/)
 

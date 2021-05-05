@@ -145,7 +145,7 @@ head(age10)
 
 ---
 
-```{r, message = F}
+```{r, message=F, warning=FALSE, results="hide"}
 library(tigris)
 library(ggplot2)
 
@@ -159,7 +159,7 @@ ggplot(manhattan_roads) +
 
 # Using `tidycensus` and `tigris`
 
-```{r}
+```{r message=FALSE, results="hide"}
 acs_poverty <- tidycensus::get_acs(geography = 'tract', 
                                    variables = 'B17001_002',
                                    summary_var = 'B17001_001',

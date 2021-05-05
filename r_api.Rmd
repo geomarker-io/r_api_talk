@@ -247,11 +247,12 @@ Example Use Case:
 - A wrapper packaged for the Google Maps API: `mapsapi` that allows you to pull directions, distances, rasters and geocoded locations (point or polygon)
 
 - Baseball fans can access interesting data using the package `baseballr`
- 
-- `baseballr` uses the official MLB stats API and can pull pitch-by-pitch data, as well as source data from various baseball statistics databases
+ - `baseballr` uses the official MLB stats API and can pull pitch-by-pitch data, as well as source data from various baseball statistics databases
   
 - [RapidAPI](https://rapidapi.com/marketplace) is an online repository of thousands of APIs across hundreds of topics
   - Most are free, but generally opensource, so quality and validity can be hard to verify
+  
+- [List](https://github.com/RomanTsegelskyi/r-api-wrappers) of more useful wrapper packages
 
 ---
 
@@ -260,14 +261,13 @@ Example Use Case:
 - Because APIs are hosted via the internet, we would never want to send any PHI through an API request. 
 
 - Recent issues with mobile health apps exposing PHI via APIs.
+  - Recent study suggested that PHI is vulnerable in most mobile health apps via the APIs that they use
 
 ---
 
 # References 
 
 [https://en.wikipedia.org/wiki/API](https://en.wikipedia.org/wiki/API)
-
-[https://www.dataquest.io/blog/r-api-tutorial/](https://www.dataquest.io/blog/r-api-tutorial/)
 
 [https://www.dataquest.io/blog/r-api-tutorial/](https://www.dataquest.io/blog/r-api-tutorial/)
 
@@ -278,5 +278,7 @@ Example Use Case:
 [https://www.rplumber.io/](https://www.rplumber.io/)
 
 [https://www.rstudio.com/resources/webinars/expanding-r-horizons-integrating-r-with-plumber-apis/](https://www.rstudio.com/resources/webinars/expanding-r-horizons-integrating-r-with-plumber-apis/)
+
+[https://www.hipaajournal.com/100-of-tested-mhealth-apps-vulnerable-to-api-attacks/](https://www.hipaajournal.com/100-of-tested-mhealth-apps-vulnerable-to-api-attacks/)
 
 ---
